@@ -1,0 +1,80 @@
+﻿@model TEST_UNGDUNG.Areas.Admin.Model.ProductModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Create New</h4>
+                    <p class="card-category"></p>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Create",
+                        "Product",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">@Html.LabelFor(model => model.name)</label>
+                                    @Html.TextBoxFor(model => model.name, new { @class = "form-control", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.name)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">@Html.LabelFor(model => model.idloai)</label>
+                                    @Html.DropDownListFor(model => model.idloai, (IEnumerable<SelectListItem>)ViewBag.IDLoai,
+                                new { @class = "form-control", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.idloai)
+                                </div>
+                            </div>
+                        </div>
+                        @Html.LabelFor(model => model.image)
+                        <input type="file" name="image1" id="image1" accept="image/jpg,image/png"/>
+                        @Html.ValidationMessageFor(model => model.image)
+                        @ViewBag.Message
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">@Html.LabelFor(model => model.unicost)</label>
+                                    @Html.TextBoxFor(model => model.unicost, new { @class = "form-control", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.unicost)
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">@Html.LabelFor(model => model.quanity)</label>
+                                    @Html.TextBoxFor(model => model.quanity, new { @class = "form-control", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.quanity)
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Create</button>
+                        <div class="clearfix"></div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

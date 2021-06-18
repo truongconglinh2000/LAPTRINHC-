@@ -1,0 +1,58 @@
+﻿@model List<ModelEF.Model.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title ">PRODUCT LIST</h4>
+                    <p class="card-category"> <a href="./Product/Create">Create New</a></p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                            <th> ID </th>
+                            <th>Name </th>
+                            <th>Image </th>
+                            <th>UniCost </th>
+                            <th> Quality</th>
+                            <th>  LoaiSP </th>
+                            <th>Thao Tác</th>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.ID </td>
+                                        <td>
+                                           @item.Name </td>
+                                        <td>
+                                            <img style="width: 150px;" src="~/Asset/Admin/img/@item.Image" />
+                                        </td>
+                                        <td>
+                                          @item.UniCost </td>
+                                        <td>
+                                           @item.Quanity </td>
+                                        <td>
+                                            @item.LoaiSP.Name
+                                        </td>
+                                        <td class="text-primary">
+                                            <a href="./Product/Detail/@item.ID">Xem chi tiết</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>

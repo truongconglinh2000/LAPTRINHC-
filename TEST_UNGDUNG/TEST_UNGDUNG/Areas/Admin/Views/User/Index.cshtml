@@ -1,0 +1,62 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model PagedList.IPagedList<ModelEF.Model.UserAccount>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Quản Lý người Dùng</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="col-lg-12 form-group">
+        <div class="col-md-6"> </div>
+        <div class="col-md-6">
+            <div class=" col-md-4">
+                <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Nhập từ khóa cần tìm kiếm" />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value=" Tìm Kiếm" class="btn btn-default" />
+            </div>
+        </div>  
+    </div>
+}
+<div class="col-lg-12 form-group">
+    <table class="table">
+        <tr>
+            <th> STT </th>
+            <th> UserName </th>
+            <th> Password </th>
+            <th> Delete </th>
+        </tr>
+        @{ var i = 1;}
+        @foreach (var item in Model) {     
+    <tr id="row_@item.ID">
+
+        <td> @i</td>
+        <td> @item.UserName</td>
+        <td> @item.Password </td>
+        @{
+            if (String.Compare(item.Status, "Block", true) == 1)
+            {
+                <td>
+                    @Ajax.ActionLink("Del", "Delete", new { @id = item.ID }, new AjaxOptions
+               {
+                   Confirm = "Do you wanna delete this User?",
+                   OnComplete = "$('#row_" + @item.ID + "').remove()",
+                   HttpMethod = "Delete"
+
+               })
+                </td>
+            }
+            else
+            {
+                <td>UnDel</td>
+            }
+        }
+    </tr> 
+            i++;
+        }
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))
+</div>
